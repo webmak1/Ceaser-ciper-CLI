@@ -4,7 +4,7 @@
   "description": "Ceaser chiper CLI tool",
   "main": "index.js",
   "scripts": {
-    "test": "test "
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/albertthewinner2000/Ceaser-chiper-CLI#readme",
   "devDependencies": {
-    "commander": "^7.2.0"
+    "commander": "^7.2.0",
+    "mocha": "^8.4.0"
   }
 }
