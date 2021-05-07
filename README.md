@@ -1,2 +1,2 @@
-# ceaser-chiper-CLI
-ceaser chiper CLI tool
+# Ceaser-chiper-CLI
+Ceaser chiper CLI tool
