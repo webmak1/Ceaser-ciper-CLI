@@ -14,19 +14,38 @@ const {
 describe('functions', () => {
 
     describe('checkShift', () => {
-        it('if --shift not defined -> throw error', () => {
-            assert.throws(() => {
-                checkShift(undefined)
-            }, Error)
+
+        it('if --shift not defined -> return null', () => {
+            assert.strictEqual(checkShift(undefined), null);
         });
+
+        it('check if shift argument correct -> return null', () => {
+            assert.strictEqual(checkShift('abc'), null);
+            assert.strictEqual(checkShift('1.5'), null);
+        });
+
+        // it('if --shift not defined -> throw error', () => {
+        //     assert.throws(() => {
+        //         checkShift(undefined)
+        //     }, Error)
+        // });
     })
 
     describe('checkAction', () => {
-        it('if --action not defined -> throw error', () => {
-            assert.throws(() => {
-                checkAction(undefined)
-            }, Error)
+
+        it('if --action not defined -> return null', () => {
+            assert.strictEqual(checkAction(undefined), null);
         });
+        
+        it('check if action argument correct -> return null', () => {
+            assert.strictEqual(checkAction('abc'), null);
+        });
+
+        // it('if --action not defined -> throw error', () => {
+        //     assert.throws(() => {
+        //         checkAction(undefined)
+        //     }, Error)
+        // });
     })
 
     describe('determineReadStream', () => {
@@ -44,6 +63,10 @@ describe('functions', () => {
 
         it('if input file is folder -> return null', () => {
             assert.ok(determineReadStream('./test/testFolder') === null)
+        });
+        
+        it('if file extension not .txt -> return null', () => {
+            assert.ok(determineReadStream('./test/fileWithNoTXTExtension.png') === null)
         });
 
         // 
@@ -71,6 +94,10 @@ describe('functions', () => {
 
         it('if has no access to file -> return null', () => {
             assert.ok(determineWriteStream('./test/noWriteAccessFile') === null)
+        });
+
+        it('if file extension not .txt -> return null', () => {
+            assert.ok(determineWriteStream('./test/fileWithNoTXTExtension.png') === null)
         });
     })
 

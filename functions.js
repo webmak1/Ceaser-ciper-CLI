@@ -1,14 +1,47 @@
 const fs = require('fs');
 const stream = require('stream');
+const path = require('path');
 
 const utils = require('./utils');
 
 function checkShift(shift) {
-    if (!shift) throw new Error('--shift did`t indicated');
+    if (!shift) {
+        try {
+            throw new Error('--shift did`t indicated');
+        } catch (err) {
+            return null
+        }
+    }
+    
+    if (Number.isNaN(Number(shift)) || !Number.isInteger(Number(shift))) {
+        try {
+            throw new Error('--shift value is inccorect');
+        } catch (err) {
+            return null
+        }
+    }
+
+    return true;
 }
 
 function checkAction(action) {
-    if (!action) throw new Error('--action did`t indicated');
+    if (!action) {
+        try {
+            throw new Error('--action did`t indicated');
+        } catch (err) {
+            return null
+        }
+    }
+    
+    if (action !== 'encode' && action !== 'decode') {
+        try {
+            throw new Error('--action value is incorrect');
+        } catch (err) {
+            return null
+        }
+    }
+
+    return true;
 }
 
 function determineReadStream(input) {
@@ -17,19 +50,24 @@ function determineReadStream(input) {
     }
 
     if (!fs.existsSync(input)) {
-        process.stderr.write('file doesn`t exist\n');
+        process.stderr.write('input file doesn`t exist\n');
         return null;
     }
 
     try {
         fs.accessSync(input, fs.constants.R_OK);
     } catch (err) {
-        process.stderr.write('no permission to read file\n');
+        process.stderr.write('no permission to read input file\n');
         return null;
     }
 
     if (fs.statSync(input).isDirectory()) {
         process.stderr.write('can`t read folder\n');
+        return null;
+    }
+    
+    if (path.extname(input) !== '.txt') {
+        process.stderr.write('input file should havs .txt extension\n');
         return null;
     }
 
@@ -42,14 +80,14 @@ function determineWriteStream(output) {
     }
 
     if (!fs.existsSync(output)) {
-        process.stderr.write('file doesn`t exist\n');
+        process.stderr.write('output file doesn`t exist\n');
         return null;
     }
 
     try {
         fs.accessSync(output, fs.constants.W_OK);
     } catch (err) {
-        process.stderr.write('no permission to read file\n');
+        process.stderr.write('no permission to write to output file\n');
         return null;
     }
 
@@ -58,10 +96,17 @@ function determineWriteStream(output) {
         return null;
     }
 
-    return fs.createWriteStream(output);
+    if (path.extname(output) !== '.txt') {
+        process.stderr.write('output file should havs .txt extension\n');
+        return null;
+    }
+
+    return fs.createWriteStream(output, {
+        flags: 'a'
+    });
 }
 
-function createTransformStream(shift = 0, action = 'encode') {
+function createTransformStream(shift, action) {
     return new stream.Transform({
         transform(chunk, encoding, callback) {
             const chunkStr = chunk.toString();
