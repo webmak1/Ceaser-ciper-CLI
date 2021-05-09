@@ -1,4 +1,4 @@
-# Ceaser chiper CLI tool
+# Ceaser ciper CLI tool
 ![alt text](https://res.cloudinary.com/practicaldev/image/fetch/s--1-VesoOt--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://thepracticaldev.s3.amazonaws.com/i/w5r4uoh0htwo6wuwshq7.jpg)
 
 <h2> Usage: </h2>
