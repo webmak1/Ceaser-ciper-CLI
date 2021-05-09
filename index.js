@@ -1,10 +1,21 @@
 const fs = require('fs');
+const stream = require('stream');
 const {
     program
 } = require('commander');
 
-const source = `${__dirname}/source.txt`;
-const dist = `${__dirname}/dist.txt`;
+const {
+    checkShift,
+    checkAction,
+    determineReadStream,
+    determineWriteStream,
+    createTransformStream,
+
+    caesarCipher
+} = require('./functions')
+
+const sourceFile = `${__dirname}/source.txt`;
+const distFile = `${__dirname}/dist.txt`;
 
 program
     .description('simple Ceaser cipher CLI tool')
@@ -15,31 +26,16 @@ program
 
 program.parse();
 
-const readStream = fs.createReadStream(source);
-const writeStream = fs.createWriteStream(dist);
 
 let options = program.opts();
 
+// checkShift(options.shift);
+// checkAction(options.action);
 
-function checkShift(shift) {
-    if (shift) {
-        console.log(shift);
-    } else {
-        console.log(shift);
-        throw new Error('--shift did`t indicated');
-    }
-}
+// const readStream = determineReadStream();
+// const writeStream = determineWriteStream();
+// const transformStream = createTransformStream(5, 'encode');
 
-function checkAction(action) {
-    if (action) {
-        console.log(action);
-    } else {
-        console.log(action);
-        throw new Error('--action did`t indicated');
-    }
-}
+const output = caesarCipher('abc', 30);
 
-module.exports = {
-    checkShift,
-    checkAction
-};
+// readStream.pipe(transformStream).pipe(writeStream);
