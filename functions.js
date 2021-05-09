@@ -80,13 +80,17 @@ function caesarCipher(input, shift = 0) {
     let outputArr = [];
     let output = '';
 
+    // debugger
+    // console.log(input, `shift: ${shift}`);
+
     // 1) input -> inputArr
     for (char of input) {
         isLetter = utils.checkAlphabetRange(char);
         inputArr.push(isLetter ? char.charCodeAt() : char);
     }
 
-    console.log(inputArr);
+    // debugger
+    // console.log(inputArr);
 
     // 2) inputArr -> outputArr
     for (value of inputArr) {
@@ -97,10 +101,20 @@ function caesarCipher(input, shift = 0) {
         }
     }
 
-    console.log(outputArr);
+    // debugger
+    // console.log(outputArr);
 
-    outputArr = inputArr;
-    output = outputArr;
+    //  3) outputArr -> output
+    outputArr.forEach((value) => {
+        if (typeof value === 'number') {
+            output += String.fromCharCode(value);
+        } else {
+            output += value;
+        }
+    })
+
+    // debugger
+    // console.log(output);
 
     return output
 }

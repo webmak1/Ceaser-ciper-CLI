@@ -4,7 +4,7 @@
   "description": "Ceaser chiper CLI tool",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha './test/functions.test.js'"
   },
   "repository": {
     "type": "git",

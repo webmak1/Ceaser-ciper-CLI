@@ -11,12 +11,7 @@ const {
     caesarCipher
 } = require('./../functions');
 
-const {
-    checkAlphabetRange,
-    encryptLetter
-} = require('./../utils');
-
-describe('main', () => {
+describe('functions', () => {
 
     describe('checkShift', () => {
         it('if --shift not defined -> throw error', () => {
@@ -86,60 +81,25 @@ describe('main', () => {
     })
 
     describe('ceaserCipher', () => {
+
         it('if input non-string -> throw Error', () => {
             assert.throws(() => {
                 caesarCipher(123)
             }, Error);
         });
-    })
 
-})
+        it('positive shift', () => {
+            assert.strictEqual(caesarCipher('This is secret. Message about "_" symbol!', 7), 'Aopz pz zljyla. Tlzzhnl hivba "_" zftivs!');
+        });
 
-describe('utils', () => {
-    describe('checkAlphabetRange', () => {
+        it('negative shift', () => {
+            assert.strictEqual(caesarCipher('Aopz pz zljyla. Tlzzhnl hivba "_" zftivs!', -7), 'This is secret. Message about "_" symbol!');
+        });
 
-        it('works correctly with lowercase letter', () => {
-            assert.strictEqual(checkAlphabetRange('a'), true);
-            assert.strictEqual(checkAlphabetRange('c'), true);
-            assert.strictEqual(checkAlphabetRange('z'), true);
-        })
-
-        it('works correctly with uppercase letter', () => {
-            assert.strictEqual(checkAlphabetRange('A'), true);
-            assert.strictEqual(checkAlphabetRange('C'), true);
-            assert.strictEqual(checkAlphabetRange('Z'), true);
-        })
-
-        it('works correctly with non-letter values', () => {
-            assert.strictEqual(checkAlphabetRange('1'), false);
-            assert.strictEqual(checkAlphabetRange(' '), false);
-            assert.strictEqual(checkAlphabetRange(','), false);
-            assert.strictEqual(checkAlphabetRange('%'), false);
-        })
-
-        it('works correctly with empty string', () => {
-            assert.strictEqual(checkAlphabetRange(''), false)
-        })
+        it('negative shift handling', () => {
+            assert.strictEqual(caesarCipher('This is secret. Message about "_" symbol!', -1), 'Sghr hr rdbqds. Ldrrzfd zants "_" rxlank!');
+        });
 
     });
 
-    describe('encryptLetter', () => {
-        it('if non-number input arg -> throws error', () => {
-            assert.throws(() => {
-                encryptLetter('string')
-            }, Error)
-
-            assert.throws(() => {
-                encryptLetter([])
-            }, Error)
-
-            assert.throws(() => {
-                encryptLetter({})
-            }, Error)
-        });
-
-        it('works with positive values lower then 26', () => {
-
-        });
-    })
-})
+});

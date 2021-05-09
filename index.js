@@ -29,13 +29,11 @@ program.parse();
 
 let options = program.opts();
 
-// checkShift(options.shift);
-// checkAction(options.action);
+checkShift(options.shift);
+checkAction(options.action);
 
-// const readStream = determineReadStream();
-// const writeStream = determineWriteStream();
-// const transformStream = createTransformStream(5, 'encode');
+const readStream = determineReadStream(options.input);
+const writeStream = determineWriteStream(options.output);
+const transformStream = createTransformStream(options.shift, options.action);
 
-const output = caesarCipher('abc', 30);
-
-// readStream.pipe(transformStream).pipe(writeStream);
+readStream.pipe(transformStream).pipe(writeStream);

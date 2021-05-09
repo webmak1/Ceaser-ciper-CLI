@@ -24,12 +24,24 @@ function checkAlphabetRange(char) {
 function encryptLetter(letter, shift) {
     if (typeof letter !== "number") throw new Error('non-number value');
 
-    const isLowerCase = letter <= 122 && letter >= 97;
-    // if (isLowerCase) {
-    //    let encryptedValue = letter + (shift % 26);
-    //    return encryptedValue > 122 ? 97 + encryptedValue % 122 : ;
-    // }
+    let encryptedValue;
+    const shiftSign = shift >= 0 ? 'positive' : 'negative';
+    const letterCase = (letter <= 122 && letter >= 97) ? 'lower' : 'upper';
 
+    const shiftedValue = letter + (shift % 26);
+    let isMoreThanAlphabetRange;
+
+    if (letterCase === 'lower') isMoreThanAlphabetRange = shiftedValue > 122 || shiftedValue < 97;
+    if (letterCase === 'upper') isMoreThanAlphabetRange = shiftedValue > 90 || shiftedValue < 65;
+
+    if (isMoreThanAlphabetRange) {
+        const sign = (shiftSign === 'positive') ? -1 : 1;
+        encryptedValue = shiftedValue + alphabetLenght * sign;
+    } else {
+        encryptedValue = shiftedValue;
+    }
+
+    return encryptedValue;
 }
 
 module.exports = {
