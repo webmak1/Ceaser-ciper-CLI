@@ -32,8 +32,8 @@ let options = program.opts();
 const isShiftSpecified = checkShift(options.shift);
 const isActionSpecified = checkAction(options.action);
 
-if (!isShiftSpecified) process.stderr.write('shift option doesn`t speciified or incorrect\n');
-if (!isActionSpecified) process.stderr.write('action option doesn`t speciified or incorrect\n')
+if (!isShiftSpecified) process.stderr.write('shift option doesn`t speciified or has wrong value\n');
+if (!isActionSpecified) process.stderr.write('action option doesn`t speciified or has wrong value\n')
 if (!isShiftSpecified || !isActionSpecified) process.exit(1);
 
 const readStream = determineReadStream(options.input);

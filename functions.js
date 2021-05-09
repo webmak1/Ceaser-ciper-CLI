@@ -67,7 +67,7 @@ function determineReadStream(input) {
     }
     
     if (path.extname(input) !== '.txt') {
-        process.stderr.write('input file should havs .txt extension\n');
+        process.stderr.write('input file should have .txt extension\n');
         return null;
     }
 
@@ -97,7 +97,7 @@ function determineWriteStream(output) {
     }
 
     if (path.extname(output) !== '.txt') {
-        process.stderr.write('output file should havs .txt extension\n');
+        process.stderr.write('output file should have .txt extension\n');
         return null;
     }
 
@@ -110,7 +110,7 @@ function createTransformStream(shift, action) {
     return new stream.Transform({
         transform(chunk, encoding, callback) {
             const chunkStr = chunk.toString();
-            this.push(caesarCipher(chunkStr, action === 'encode' ? shift : shift * -1));
+            this.push(caesarCipher(chunkStr, action === 'encode' ? shift : shift * -1) + '\n');
             callback();
         }
     })
