@@ -1,0 +1,28 @@
+{
+  "name": "ceaser-chiper-cli",
+  "version": "1.0.0",
+  "description": "Ceaser chiper CLI tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha './test/functions.test.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albertthewinner2000/Ceaser-chiper-CLI.git"
+  },
+  "keywords": [
+    "Cheaser chiper",
+    "CLI",
+    "commander"
+  ],
+  "author": "Albert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/albertthewinner2000/Ceaser-chiper-CLI/issues"
+  },
+  "homepage": "https://github.com/albertthewinner2000/Ceaser-chiper-CLI#readme",
+  "devDependencies": {
+    "commander": "^7.2.0",
+    "mocha": "^8.4.0"
+  }
+}
